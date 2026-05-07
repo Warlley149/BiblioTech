@@ -15,4 +15,7 @@ public class Autor { // Verifique se aqui está 'Autor' e não 'Altor'
 
     public void setId(int i) {
     }
+
+    public void setNome(String s) {
+    }
 }

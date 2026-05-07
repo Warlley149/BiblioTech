@@ -14,7 +14,7 @@ public class Main {
         cat.setNome("Programação");
 
         Autor autor = new Autor();
-        autor.setId(Integer.parseInt("Robert C. Martin"));
+        autor.setNome("Robert C. Martin"); // <-- O nome vai aqui, e é uma String!
 
         // 2. Criamos o Livro e associamos a base a ele
         Livro livro = new Livro();
