@@ -1,1 +1,8 @@
-
+{
+  "campo": "titulo",
+  "tipo": "VARCHAR(255)",
+  "chave_primaria": false,
+  "auto_incremento": false,
+  "nulo": false,
+  "descricao": "Título completo do livro."
+}

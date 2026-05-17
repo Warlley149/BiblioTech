@@ -1,1 +1,8 @@
-
+{
+  "campo": "ano_publicacao",
+  "tipo": "INT",
+  "chave_primaria": false,
+  "auto_incremento": false,
+  "nulo": true,
+  "descricao": "Ano de publicação do livro (formato AAAA)."
+}
