@@ -1,4 +1,6 @@
 package org.example.enums;
 
-public class StatusEmprestimo {
+public enum StatusEmprestimo {
+    EM_ABERTO,
+    DEVOLVIDO
 }

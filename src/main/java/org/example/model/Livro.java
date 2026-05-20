@@ -12,33 +12,94 @@ public class Livro {
     private int quantidadeTotal;
     private int quantidadeDisponivel;
 
-    // Relacionamentos (O segredo do projeto)
+    // Relacionamentos
     private Categoria categoria;
     private List<Autor> autores = new ArrayList<>();
 
     public Livro() {}
 
-    // Getters e Setters
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public int getId() {
+        return id;
+    }
 
-    public String getIsbn() { return isbn; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getQuantidadeTotal() { return quantidadeTotal; }
-    public void setQuantidadeTotal(int quantidadeTotal) { this.quantidadeTotal = quantidadeTotal; }
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public int getQuantidadeDisponivel() { return quantidadeDisponivel; }
-    public void setQuantidadeDisponivel(int quantidadeDisponivel) { this.quantidadeDisponivel = quantidadeDisponivel; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-    public Categoria getCategoria() { return categoria; }
-    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+    public String getIsbn() {
+        return isbn;
+    }
 
-    public List<Autor> getAutores() { return autores; }
-    public void setAutores(List<Autor> autores) { this.autores = autores; }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
-    public short getAnoPublicacao() { return anoPublicacao; }
-    public void setAnoPublicacao(short anoPublicacao) { this.anoPublicacao = anoPublicacao; }
+    public short getAnoPublicacao() {
+        return anoPublicacao;
+    }
 
-    // Adicione os outros que faltarem (id, editora...)
+    public void setAnoPublicacao(short anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
+    }
+
+    public int getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public void setQuantidadeTotal(int quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", anoPublicacao=" + anoPublicacao +
+                ", editora='" + editora + '\'' +
+                ", quantidadeTotal=" + quantidadeTotal +
+                ", quantidadeDisponivel=" + quantidadeDisponivel +
+                '}';
+    }
 }
