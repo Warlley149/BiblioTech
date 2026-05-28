@@ -1,8 +1,0 @@
-{
-  "campo": "editora",
-  "tipo": "VARCHAR(100)",
-  "chave_primaria": false,
-  "auto_incremento": false,
-  "nulo": true,
-  "descricao": "Nome da editora que publicou a obra."
-}

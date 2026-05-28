@@ -1,9 +1,0 @@
-{
-  "campo": "quantidade_disponivel",
-  "tipo": "INT",
-  "chave_primaria": false,
-  "auto_incremento": false,
-  "nulo": false,
-  "valor_padrao": 0,
-  "descricao": "Quantidade de exemplares atualmente livres para empréstimo."
-}

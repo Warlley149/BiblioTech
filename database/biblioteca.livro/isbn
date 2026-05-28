@@ -1,9 +1,0 @@
-{
-  "campo": "isbn",
-  "tipo": "VARCHAR(13)",
-  "chave_primaria": false,
-  "auto_incremento": false,
-  "nulo": true,
-  "unico": true,
-  "descricao": "Código ISBN de 10 ou 13 dígitos para identificação internacional do livro."
-}

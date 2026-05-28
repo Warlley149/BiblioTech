@@ -1,8 +1,0 @@
-{
-  "campo": "id_livro",
-  "tipo": "INT",
-  "chave_primaria": true,
-  "auto_incremento": true,
-  "nulo": false,
-  "descricao": "Identificador único e exclusivo de cada livro registrado no sistema."
-}
