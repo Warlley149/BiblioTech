@@ -55,3 +55,37 @@ CREATE TABLE biblioteca.EMPRESTIMO
         )
 );
 GO
+
+----------
+
+/*TESTAR A CRIAÇÃO DA TABELA EMPRESTIMO*/
+
+USE BiblioTechDB;
+GO
+
+SELECT
+    s.name AS schema_name,
+    t.name AS table_name
+FROM sys.tables t
+INNER JOIN sys.schemas s
+    ON t.schema_id = s.schema_id
+WHERE t.name = 'EMPRESTIMO';
+GO
+
+--------
+/*TESTAR AS COLUNAS DA TABELA EMPRESTIMO*/
+
+USE BiblioTechDB;
+GO
+
+SELECT
+    c.name AS nome_coluna,
+    ty.name AS tipo_dado,
+    c.max_length AS tamanho,
+    c.is_nullable AS permite_nulo
+FROM sys.columns c
+INNER JOIN sys.types ty
+    ON c.user_type_id = ty.user_type_id
+WHERE c.object_id = OBJECT_ID('biblioteca.EMPRESTIMO')
+ORDER BY c.column_id;
+GO
