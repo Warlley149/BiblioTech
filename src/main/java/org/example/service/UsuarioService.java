@@ -1,78 +1,55 @@
 package org.example.service;
 
-import org.example.exception.ValidacaoException;
+import org.example.enums.StatusUsuario;
 import org.example.model.Usuario;
 import org.example.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class UsuarioService {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository repository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioService(UsuarioRepository repository) {
+        this.repository = repository;
     }
 
-    public String cadastrarUsuario(Usuario usuario) {
-        validarNome(usuario.getNomeCompleto());
-        validarEmail(usuario.getEmail());
-        validarTelefone(usuario.getTelefone());
-        validarEmailUnico(usuario.getEmail());
-        validarMatriculaUnica(usuario.getMatricula());
+    public Usuario salvar(Usuario usuario) {
 
-        usuarioRepository.salvar(usuario);
-
-        return "Usuário cadastrado com sucesso.";
-    }
-
-    private void validarNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new ValidacaoException("Nome não pode ser vazio.");
-        }
-    }
-
-    private void validarEmail(String email) {
-        if (email == null || email.trim().isEmpty() || !email.contains("@")) {
-            throw new ValidacaoException("Email inválido.");
-        }
-    }
-
-    private void validarTelefone(String telefone) {
-        if (telefone == null || telefone.trim().isEmpty()) {
-            throw new ValidacaoException("Telefone obrigatório.");
+        // ✅ REGRA DE NEGÓCIO AQUI
+        if (usuario.getStatusUsuario() != StatusUsuario.ATIVO) {
+            throw new RuntimeException("Usuário precisa estar ATIVO para ser cadastrado.");
         }
 
-        if (!telefone.matches("[0-9()\\-\\s]+")) {
-            throw new ValidacaoException("Telefone contém caracteres inválidos.");
-        }
+        return repository.save(usuario);
     }
 
-    private void validarEmailUnico(String email) {
-        if (usuarioRepository.buscarPorEmail(email) != null) {
-            throw new ValidacaoException("Email já cadastrado.");
-        }
+    public List<Usuario> listar() {
+        return repository.findAll();
     }
 
-    private void validarMatriculaUnica(String matricula) {
-        if (usuarioRepository.buscarPorMatricula(matricula) != null) {
-            throw new ValidacaoException("Matrícula já cadastrada.");
-        }
+    public Usuario buscarPorId(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    private void validarMatricula(String matricula) {
-        if (matricula == null || matricula.trim().isEmpty()) {
-            throw new ValidacaoException("Matrícula obrigatória.");
-        }
+    public Usuario atualizar(Integer id, Usuario usuario) {
+        Usuario existente = buscarPorId(id);
+
+        existente.setNomeCompleto(usuario.getNomeCompleto());
+        existente.setEmail(usuario.getEmail());
+        existente.setTelefone(usuario.getTelefone());
+        existente.setMatricula(usuario.getMatricula());
+        existente.setTipoUsuario(usuario.getTipoUsuario());
+        existente.setStatusUsuario(usuario.getStatusUsuario());
+
+        return repository.save(existente);
     }
 
-    private void validarTipoUsuario(Object tipoUsuario) {
-        if (tipoUsuario == null) {
-            throw new ValidacaoException("Tipo de usuário obrigatório.");
-        }
+    public void deletar(Integer id) {
+        repository.deleteById(id);
     }
 
-    private void validarStatusUsuario(Object statusUsuario) {
-        if (statusUsuario == null) {
-            throw new ValidacaoException("Status do usuário obrigatório.");
-        }
-    }
 }

@@ -1,19 +1,9 @@
 package org.example.repository;
 
 import org.example.model.Livro;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class LivroRepository {
-    private List<Livro> livros = new ArrayList<>();
-    private int proximoId = 1;
+public interface LivroRepository extends JpaRepository<Livro, Integer> {
 
-    public void salvar(Livro livro) {
-        livro.setQuantidadeDisponivel(livro.getQuantidadeTotal()); // Regra: Inicial = Total
-        livros.add(livro);
-    }
-
-    public boolean existeIsbn(String isbn) {
-        return livros.stream().anyMatch(l -> l.getIsbn().equals(isbn));
-    }
+    boolean existsByIsbn(String isbn);
 }

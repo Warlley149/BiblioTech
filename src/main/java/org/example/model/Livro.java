@@ -1,28 +1,60 @@
 package org.example.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "LIVRO", schema = "biblioteca")
 public class Livro {
-    private int id;
-    private String titulo;
-    private String isbn;
-    private short anoPublicacao;
-    private String editora;
-    private int quantidadeTotal;
-    private int quantidadeDisponivel;
 
-    // Relacionamentos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_livro")
+    private Integer id;
+
+    @Column(name = "titulo", nullable = false)
+    private String titulo;
+
+    @Column(name = "isbn", nullable = false, unique = true)
+    private String isbn;
+
+    @Column(name = "ano_publicacao")
+    private Short anoPublicacao;
+
+    @Column(name = "editora")
+    private String editora;
+
+    @Column(name = "quantidade_total", nullable = false)
+    private Integer quantidadeTotal;
+
+    @Column(name = "quantidade_disponivel", nullable = false)
+    private Integer quantidadeDisponivel;
+
+    // 🔥 RELACIONAMENTO COM CATEGORIA
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
+
+    // 🔥 RELACIONAMENTO COM AUTOR (tabela intermediária)
+    @ManyToMany
+    @JoinTable(
+            name = "LIVRO_AUTOR",
+            schema = "biblioteca",
+            joinColumns = @JoinColumn(name = "id_livro"),
+            inverseJoinColumns = @JoinColumn(name = "id_autor")
+    )
     private List<Autor> autores = new ArrayList<>();
 
     public Livro() {}
 
-    public int getId() {
+    // GETTERS E SETTERS
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,11 +74,11 @@ public class Livro {
         this.isbn = isbn;
     }
 
-    public short getAnoPublicacao() {
+    public Short getAnoPublicacao() {
         return anoPublicacao;
     }
 
-    public void setAnoPublicacao(short anoPublicacao) {
+    public void setAnoPublicacao(Short anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
@@ -58,19 +90,19 @@ public class Livro {
         this.editora = editora;
     }
 
-    public int getQuantidadeTotal() {
+    public Integer getQuantidadeTotal() {
         return quantidadeTotal;
     }
 
-    public void setQuantidadeTotal(int quantidadeTotal) {
+    public void setQuantidadeTotal(Integer quantidadeTotal) {
         this.quantidadeTotal = quantidadeTotal;
     }
 
-    public int getQuantidadeDisponivel() {
+    public Integer getQuantidadeDisponivel() {
         return quantidadeDisponivel;
     }
 
-    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
+    public void setQuantidadeDisponivel(Integer quantidadeDisponivel) {
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
@@ -88,18 +120,5 @@ public class Livro {
 
     public void setAutores(List<Autor> autores) {
         this.autores = autores;
-    }
-
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", anoPublicacao=" + anoPublicacao +
-                ", editora='" + editora + '\'' +
-                ", quantidadeTotal=" + quantidadeTotal +
-                ", quantidadeDisponivel=" + quantidadeDisponivel +
-                '}';
     }
 }

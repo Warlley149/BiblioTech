@@ -9,7 +9,7 @@ import org.example.repository.EmprestimoRepository;
 import org.example.repository.UsuarioRepository;
 import org.example.service.EmprestimoService;
 import org.example.service.LivroService;
-import org.example.service.UsuarioService;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,25 +1,73 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "CATEGORIA", schema = "biblioteca")
 public class Categoria {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
+    private Integer id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "descricao")
     private String descricao;
-    private boolean statusAtivo;
+
+    @Column(name = "status_ativo")
+    private Boolean statusAtivo;
+
+    @Column(name = "data_cadastro")
+    private LocalDateTime dataCadastro;
 
     public Categoria() {
-        this.statusAtivo = true; // Categoria nasce ativa por padrão
+        this.statusAtivo = true;
+        this.dataCadastro = LocalDateTime.now();
     }
 
-    // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    // GETTERS E SETTERS
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public Integer getId() {
+        return id;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public boolean isStatusAtivo() { return statusAtivo; }
-    public void setStatusAtivo(boolean statusAtivo) { this.statusAtivo = statusAtivo; }
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Boolean getStatusAtivo() {
+        return statusAtivo;
+    }
+
+    public void setStatusAtivo(Boolean statusAtivo) {
+        this.statusAtivo = statusAtivo;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 }

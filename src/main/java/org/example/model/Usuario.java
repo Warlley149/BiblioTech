@@ -1,20 +1,43 @@
 package org.example.model;
 
-import org.example.enums.TipoUsuario;
+import jakarta.persistence.*;
 import org.example.enums.StatusUsuario;
+import org.example.enums.TipoUsuario;
 
+@Entity
+@Table(name = "USUARIO", schema = "biblioteca")
 public class Usuario {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
+    private Integer id;
+
+    @Column(name = "nome_completo", nullable = false, length = 120)
     private String nomeCompleto;
+
+    @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
+
+    @Column(name = "telefone", nullable = false, length = 15)
     private String telefone;
+
+    @Column(name = "matricula", nullable = false, unique = true, length = 20)
     private String matricula;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_usuario", nullable = false, length = 20)
     private TipoUsuario tipoUsuario;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_usuario", nullable = false, length = 20)
     private StatusUsuario statusUsuario;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
-    public Usuario(int id, String nomeCompleto, String email, String telefone, String matricula, TipoUsuario tipoUsuario, StatusUsuario statusUsuario) {
+    public Usuario(Integer id, String nomeCompleto, String email, String telefone, String matricula,
+                   TipoUsuario tipoUsuario, StatusUsuario statusUsuario) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
@@ -24,11 +47,11 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -79,18 +102,4 @@ public class Usuario {
     public void setStatusUsuario(StatusUsuario statusUsuario) {
         this.statusUsuario = statusUsuario;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nomeCompleto='" + nomeCompleto + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", matricula='" + matricula + '\'' +
-                ", tipoUsuario=" + tipoUsuario +
-                ", statusUsuario=" + statusUsuario +
-                '}';
-    }
-
 }
