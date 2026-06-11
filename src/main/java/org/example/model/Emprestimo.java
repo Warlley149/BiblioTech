@@ -1,119 +1,78 @@
 package org.example.model;
 
+import jakarta.persistence.*;
 import org.example.enums.StatusEmprestimo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "EMPRESTIMO", schema = "biblioteca")
 public class Emprestimo {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_emprestimo")
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_livro", nullable = false)
     private Livro livro;
+
+    @Column(name = "data_emprestimo")
     private LocalDateTime dataEmprestimo;
+
+    @Column(name = "data_prevista_devolucao")
     private LocalDate dataPrevistaDevolucao;
+
+    @Column(name = "data_devolucao")
     private LocalDateTime dataDevolucao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_emprestimo")
     private StatusEmprestimo statusEmprestimo;
-    private int diasAtraso;
-    private double valorMulta;
+
+    /*@Column(name = "dias_atraso")
+    private Integer diasAtraso;
+
+    @Column(name = "valor_multa")
+    private Double valorMulta;*/
 
     public Emprestimo() {
+        this.dataEmprestimo = LocalDateTime.now();
+        this.dataPrevistaDevolucao = LocalDate.now().plusDays(7);
+        this.statusEmprestimo = StatusEmprestimo.EM_ABERTO;
+        /*this.diasAtraso = 0;
+        this.valorMulta = 0.0;*/
     }
-
-    public Emprestimo(int id, Usuario usuario, Livro livro, LocalDateTime dataEmprestimo,
-                      LocalDate dataPrevistaDevolucao, LocalDateTime dataDevolucao,
-                      StatusEmprestimo statusEmprestimo) {
-        this.id = id;
-        this.usuario = usuario;
-        this.livro = livro;
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
-        this.dataDevolucao = dataDevolucao;
-        this.statusEmprestimo = statusEmprestimo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public Usuario getUsuario() {
         return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public Livro getLivro() {
         return livro;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
-    }
-
-    public LocalDateTime getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
-    public LocalDate getDataPrevistaDevolucao() {
-        return dataPrevistaDevolucao;
-    }
-
-    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
-    }
-
-    public LocalDateTime getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
     public StatusEmprestimo getStatusEmprestimo() {
         return statusEmprestimo;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
     public void setStatusEmprestimo(StatusEmprestimo statusEmprestimo) {
         this.statusEmprestimo = statusEmprestimo;
     }
 
-    public int getDiasAtraso() {
-        return diasAtraso;
-    }
-
-    public void setDiasAtraso(int diasAtraso) {
-        this.diasAtraso = diasAtraso;
-    }
-
-    public double getValorMulta() {
-        return valorMulta;
-    }
-
-    public void setValorMulta(double valorMulta) {
-        this.valorMulta = valorMulta;
-    }
-
-    @Override
-    public String toString() {
-        return "Emprestimo{" +
-                "id=" + id +
-                ", usuario=" + usuario +
-                ", livro=" + livro +
-                ", dataEmprestimo=" + dataEmprestimo +
-                ", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
-                ", dataDevolucao=" + dataDevolucao +
-                ", statusEmprestimo=" + statusEmprestimo +
-                '}';
-    }
+    // getters e setters (mantém os seus)
 }

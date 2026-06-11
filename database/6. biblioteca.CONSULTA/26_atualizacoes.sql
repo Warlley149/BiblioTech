@@ -1,0 +1,72 @@
+USE BiblioTechDB;
+
+SELECT * FROM biblioteca.EMPRESTIMO;
+
+SELECT quantidade_disponivel FROM biblioteca.LIVRO;
+
+SELECT * FROM USUARIO;
+
+SELECT * FROM biblioteca.LIVRO;
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD dias_atraso INT;
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD valor_multa DECIMAL(10,2);
+
+SELECT * FROM biblioteca.EMPRESTIMO;
+
+SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'EMPRESTIMO';
+
+SELECT DB_NAME();
+SELECT * FROM biblioteca.EMPRESTIMO;
+
+SELECT quantidade_disponivel FROM biblioteca.LIVRO;
+
+UPDATE biblioteca.USUARIO
+SET status_usuario = 'ATIVO'
+WHERE id_usuario = 1;
+
+SELECT quantidade_disponivel FROM biblioteca.LIVRO;
+
+UPDATE biblioteca.LIVRO
+SET quantidade_disponivel = 5
+WHERE id_livro = 1;
+
+UPDATE biblioteca.USUARIO
+SET status_usuario = 'ATIVO'
+WHERE id_usuario = 1;
+
+EXEC sp_helpconstraint 'biblioteca.EMPRESTIMO';
+
+ALTER TABLE biblioteca.EMPRESTIMO
+DROP CONSTRAINT CK_EMPRESTIMO_STATUS;
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD CONSTRAINT CK_EMPRESTIMO_STATUS
+CHECK (status_emprestimo IN ('EM_ABERTO', 'DEVOLVIDO'));
+--------
+
+ALTER TABLE biblioteca.EMPRESTIMO
+DROP CONSTRAINT DF_EMPRESTIMO_STATUS;
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD CONSTRAINT DF_EMPRESTIMO_STATUS
+DEFAULT 'EM_ABERTO' FOR status_emprestimo;
+
+---------------------
+ALTER TABLE biblioteca.EMPRESTIMO DROP CONSTRAINT CK_EMPRESTIMO_STATUS;
+ALTER TABLE biblioteca.EMPRESTIMO DROP CONSTRAINT DF_EMPRESTIMO_STATUS;
+---------------------
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD CONSTRAINT CK_EMPRESTIMO_STATUS
+CHECK (status_emprestimo IN ('EM_ABERTO', 'DEVOLVIDO'));
+
+ALTER TABLE biblioteca.EMPRESTIMO
+ADD CONSTRAINT DF_EMPRESTIMO_STATUS
+DEFAULT 'EM_ABERTO' FOR status_emprestimo;
+
+EXEC sp_helpconstraint 'biblioteca.EMPRESTIMO';
