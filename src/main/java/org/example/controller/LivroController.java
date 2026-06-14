@@ -25,4 +25,12 @@ public class LivroController {
     public List<Livro> listar() {
         return service.listar();
     }
+
+    @GetMapping("/buscar")
+    public List<Livro> buscar(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(required = false) Boolean disponivel) {
+
+        return service.buscar(titulo, disponivel);
+    }
 }

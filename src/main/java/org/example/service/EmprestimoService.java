@@ -10,6 +10,8 @@ import org.example.repository.LivroRepository;
 import org.example.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -59,5 +61,42 @@ public class EmprestimoService {
     }
     public List<Emprestimo> listar() {
         return repository.findAll();
+    }
+
+    //DEVOUÇÃO DE LIVRO
+
+    public Emprestimo devolver(Integer emprestimoId) {
+
+        Emprestimo emprestimo = repository.findById(emprestimoId)
+                .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
+
+        emprestimo.setStatusEmprestimo(StatusEmprestimo.DEVOLVIDO);
+
+        LocalDateTime agora = LocalDateTime.now();
+        emprestimo.setDataDevolucao(agora);
+
+        // ✅ lógica de atraso
+        LocalDate dataPrevista = emprestimo.getDataPrevistaDevolucao();
+        LocalDate hoje = LocalDate.now();
+
+        if (hoje.isAfter(dataPrevista)) {
+
+            long dias = java.time.temporal.ChronoUnit.DAYS
+                    .between(dataPrevista, hoje);
+
+            emprestimo.setDiasAtraso((int) dias);
+            emprestimo.setValorMulta(dias * 2.0);
+
+        } else {
+            emprestimo.setDiasAtraso(0);
+            emprestimo.setValorMulta(0.0);
+        }
+
+        // ✅ devolve ao estoque
+        Livro livro = emprestimo.getLivro();
+        livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() + 1);
+        livroRepository.save(livro);
+
+        return repository.save(emprestimo);
     }
 }

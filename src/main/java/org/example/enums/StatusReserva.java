@@ -1,4 +1,6 @@
 package org.example.enums;
 
-public class StatusReserva {
+public enum StatusReserva {
+    ATIVA,
+    CANCELADA
 }

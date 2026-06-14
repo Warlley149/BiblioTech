@@ -36,11 +36,11 @@ public class Emprestimo {
     @Column(name = "status_emprestimo")
     private StatusEmprestimo statusEmprestimo;
 
-    /*@Column(name = "dias_atraso")
+    @Column(name = "dias_atraso")
     private Integer diasAtraso;
 
     @Column(name = "valor_multa")
-    private Double valorMulta;*/
+    private Double valorMulta;
 
     public Emprestimo() {
         this.dataEmprestimo = LocalDateTime.now();
@@ -74,5 +74,29 @@ public class Emprestimo {
         this.statusEmprestimo = statusEmprestimo;
     }
 
-    // getters e setters (mantém os seus)
+    // getters e setters
+
+    public void setDataDevolucao(LocalDateTime dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
+    public void setDiasAtraso(Integer diasAtraso) {
+        this.diasAtraso = diasAtraso;
+    }
+
+    public void setValorMulta(Double valorMulta) {
+        this.valorMulta = valorMulta;
+    }
+
+    public LocalDate getDataPrevistaDevolucao() {
+        return dataPrevistaDevolucao;
+    }
+
+    public Integer getDiasAtraso() {
+        return diasAtraso;
+    }
+
+    public Double getValorMulta() {
+        return valorMulta;
+    }
 }

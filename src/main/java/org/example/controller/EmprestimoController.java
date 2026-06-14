@@ -29,4 +29,8 @@ public class EmprestimoController {
     public List<Emprestimo> listar() {
         return service.listar();
     }
+    @PutMapping("/devolver/{id}")
+    public Emprestimo devolver(@PathVariable Integer id) {
+        return service.devolver(id);
+    }
 }

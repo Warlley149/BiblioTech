@@ -9,10 +9,10 @@ import java.util.List;
 @Service
 public class LivroService {
 
-    private final LivroRepository repository;
+    private final LivroRepository LivroRepository;
 
     public LivroService(LivroRepository repository) {
-        this.repository = repository;
+        this.LivroRepository = repository;
     }
 
     public Livro cadastrar(Livro livro) throws Exception {
@@ -33,17 +33,30 @@ public class LivroService {
             throw new Exception("Livro deve ter pelo menos um autor!");
         }
 
-        if (repository.existsByIsbn(livro.getIsbn())) {
+        if (LivroRepository.existsByIsbn(livro.getIsbn())) {
             throw new Exception("ISBN já cadastrado!");
         }
 
         // regra do sistema
         livro.setQuantidadeDisponivel(livro.getQuantidadeTotal());
 
-        return repository.save(livro);
+        return LivroRepository.save(livro);
     }
 
     public List<Livro> listar() {
-        return repository.findAll();
+        return LivroRepository.findAll();
+    }
+
+    public List<Livro> buscar(String titulo, Boolean disponivel) {
+
+        if (titulo != null && !titulo.isEmpty()) {
+            return LivroRepository.findByTituloContainingIgnoreCase(titulo);
+        }
+
+        if (disponivel != null && disponivel) {
+            return LivroRepository.findByQuantidadeDisponivelGreaterThan(0);
+        }
+
+        return LivroRepository.findAll();
     }
 }

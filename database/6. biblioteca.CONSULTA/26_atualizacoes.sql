@@ -70,3 +70,5 @@ ADD CONSTRAINT DF_EMPRESTIMO_STATUS
 DEFAULT 'EM_ABERTO' FOR status_emprestimo;
 
 EXEC sp_helpconstraint 'biblioteca.EMPRESTIMO';
+
+SELECT id_livro FROM biblioteca.LIVRO;

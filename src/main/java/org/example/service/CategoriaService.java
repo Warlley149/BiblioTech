@@ -17,16 +17,15 @@ public class CategoriaService {
 
     public void cadastrar(Categoria categoria) throws Exception {
 
-        // ✅ regra do seu PDF
         if (categoria.getNome() == null || categoria.getNome().trim().isEmpty()) {
             throw new Exception("O nome da categoria é obrigatório!");
         }
 
-        repository.salvar(categoria);
+        repository.save(categoria); // ✅ antes era salvar()
         System.out.println("Categoria '" + categoria.getNome() + "' cadastrada com sucesso!");
     }
 
     public List<Categoria> listar() {
-        return repository.listarTodas();
+        return repository.findAll(); // ✅ antes era listarTodas()
     }
 }

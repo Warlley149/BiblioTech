@@ -1,4 +1,6 @@
 package org.example.enums;
 
-public class StatusMulta {
+public enum StatusMulta {
+    PENDENTE,
+    PAGO
 }
